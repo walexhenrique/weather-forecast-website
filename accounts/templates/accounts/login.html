@@ -1,0 +1,23 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<section class="container">
+    <div class="login">
+        <h1>Login</h1>
+        <form method="post">
+            {% csrf_token %} 
+            <div class="login-form">
+                <div class="username">
+                    <label for="username">Username:</label><br>
+                    <input type="text" name="username" id="username">
+                </div>
+                <div class="password-content">
+                    <label for="password">Senha:</label><br>
+                    <input type="password" name="password" id="password">
+                </div>
+                <button type="submit">Logar</button>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock content %}
