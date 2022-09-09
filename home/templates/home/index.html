@@ -7,127 +7,20 @@
         <div class="title">
             <h1>Previsão das capitais:</h1>
         </div>
+        {% for city in cities %}
         <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
+            <a href="{% url 'accounts:about_city' city.slug %}">
+                <img src="http://openweathermap.org/img/wn/{{city.weathers.0.icon}}@2x.png" alt="{{ city.weathers.0.desc }}">
                 <header>
-                    <h2>São Bernado do campo - BR</h2>
+                    <h2>{{ city.city_name }}</h2>
                 </header>
 
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
+                <p class="temp">Temperatura: {{ city.weathers.0.temp }}°C</p>
+                <p class="hour">Horário: {{ city.weathers.0.hour }}</p>
+                <p class="status">{{ city.weathers.0.desc }}</p>
             </a>
         </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
-        <article class="city">
-            <a href="#">
-                <img src="http://openweathermap.org/img/wn/10d@2x.png" alt="previsão de chuva">
-                <header>
-                    <h2>São paulo - BR</h2>
-                </header>
-
-                <p class="temp">Temperatura: 27°C</p>
-                <p class="hour">Horário: 20h</p>
-                <p class="status">Nublado</p>
-            </a>
-        </article>
+        {% endfor %}
     </div>
 
 </section> 

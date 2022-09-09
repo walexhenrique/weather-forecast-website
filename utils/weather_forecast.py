@@ -2,7 +2,7 @@ import math
 from datetime import datetime
 from threading import Thread
 from typing import Dict, List, Union
-
+from slugify import slugify
 import requests
 
 
@@ -14,6 +14,7 @@ class CityWeather:
         self.city: str = city.replace('-', ' ').capitalize()
         self.city_name: str = ''
         self.weathers: List[Dict] = []
+        self.slug: str = ''
 
     def connect_api(self) -> bool:
         try:
@@ -25,6 +26,7 @@ class CityWeather:
             
             self._add_weather_in_list(response_weather)
             self.city_name = response_weather['city']['name']
+            self.slug = slugify(self.city_name)
             
             print(f'entrei na: {self.city} {datetime.now()}')
             return True

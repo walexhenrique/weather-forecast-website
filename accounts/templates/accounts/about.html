@@ -10,7 +10,7 @@
         </div>
         {% for weather in city.weathers %}
         <article class="city-about">
-            <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png" alt="previsão de chuva">
+            <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png" alt="{{ weather.description }}">
             <header>
                 <h2>{{ city.city_name }}</h2>
             </header>
