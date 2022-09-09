@@ -452,3 +452,31 @@ button {
     max-width: 128rem;
     margin: 0 auto;
 }
+
+/* alert django*/
+
+.alert {
+    position: fixed;
+    top: 5rem;
+    right: 3rem;
+    padding: 2rem;
+    color: var(--color-white);
+    border-radius: 1rem;
+    transition: all 300ms ease-in-out;
+    box-shadow: 0.2rem 0.2rem var(--color-white);
+}
+
+.alert-info {
+    background: #14213d;
+}
+.alert:hover {
+    opacity: 0.5;
+}
+
+.alert-danger {
+    background: #d62828;
+}
+
+.alert-sucess {
+    background: #06d6a0;
+}

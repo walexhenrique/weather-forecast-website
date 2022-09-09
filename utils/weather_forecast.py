@@ -28,7 +28,6 @@ class CityWeather:
             self.city_name = response_weather['city']['name']
             self.slug = slugify(self.city_name)
             
-            print(f'entrei na: {self.city} {datetime.now()}')
             return True
         except requests.exceptions.ConnectionError:
             return False

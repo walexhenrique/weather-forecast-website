@@ -1,8 +1,10 @@
 import random
-from slugify import slugify
+
+
 from django.shortcuts import render
-from utils.weather_forecast import CityWeatherFactory, CityThread
-capitals = ['Rio branco', 'Maceio', 'Macapá', 'Manaus', 'Salvador', 'Fortaleza', 'Brasilia',
+from utils.weather_forecast import CityThread, CityWeatherFactory
+
+capitals = ['Rio branco', 'Maceio', 'Macapá', 'Manaus', 'Fortaleza', 'Brasilia',
                 'Vitória', 'Goiânia', 'São Luís', 'Cuiabá', 'Campo Grande', 'Belo Horizonte',
                 'Belém', 'João Pessoa', 'Curitiba', 'Recife', 'Teresina', 'Rio de Janeiro', 
                 'Natal', 'Porto Alegre', 'Boa Vista', 'Florianópolis', 'São Paulo', 'Aracaju',
@@ -10,6 +12,7 @@ capitals = ['Rio branco', 'Maceio', 'Macapá', 'Manaus', 'Salvador', 'Fortaleza'
     ]
 # Create your views here.
 def index(request):
+    
     capitals_random = random.sample(capitals, 6)
     cities = [CityWeatherFactory.get_city(capital) for capital in capitals_random]
     
