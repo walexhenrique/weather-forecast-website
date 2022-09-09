@@ -1,9 +1,11 @@
+import requests
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from django.shortcuts import HttpResponse, redirect, render
 from django.core.validators import validate_email
+from django.shortcuts import HttpResponse, redirect, render
 from slugify import slugify
+from utils import weather_forecast
 
 
 # Create your views here.
@@ -30,7 +32,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('home:index')
-    
+
 def register(request):
 
     if request.method != 'POST':
@@ -90,5 +92,21 @@ def dashboard(request):
         'cities': cities
     })
 
+@login_required(login_url='accounts:login')
 def about_city(request, city):
-    return HttpResponse(f'TEMPORARIO {city}')
+
+    user = auth.get_user(request)
+    city_in_bd = user.cities.filter(slug=city).exists()
+    
+    # tem a cidade no banco do usuario
+    if city_in_bd:
+        city = user.cities.filter(slug=city).first().name
+    
+    city_api = weather_forecast.CityWeather(city)
+    if not city_api.connect_api():
+        return HttpResponse('CIDADE NÃO EXISTE')
+        
+    return render(request, 'accounts/about.html', {
+        'city': city_api, 
+        'title': f'Previsão do tempo de {city_api.city}',
+        })

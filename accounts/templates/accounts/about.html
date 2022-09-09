@@ -1,0 +1,29 @@
+{% extends 'global/base.html' %}
+
+
+{% block content %}
+<section class="container-content">
+
+    <div class="weather-content center-content">
+        <div class="title">
+            <h1>Previsão do tempo:</h1>
+        </div>
+        {% for weather in city.weathers %}
+        <article class="city-about">
+            <img src="http://openweathermap.org/img/wn/{{weather.icon}}@2x.png" alt="previsão de chuva">
+            <header>
+                <h2>{{ city.city_name }}</h2>
+            </header>
+
+            <p class="temp">Temperatura: {{ weather.temp }}°C</p>
+            <p class="temp-feel">Sensação térmica: {{ weather.feels_like }}°C</p>
+            <p class="humidity">Umidade: {{ weather.humidity }}%</p>
+            <p class="date-hour">Data e Hora: {{ weather.date }} - {{ weather.hour }}h</p>
+            <p class="status">{{ weather.description }}</p>
+        </article>
+        {% endfor %}
+        
+    </div>
+
+</section>
+{% endblock content %}
