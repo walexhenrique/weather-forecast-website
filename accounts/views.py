@@ -128,7 +128,7 @@ def about_city(request, city):
     user = auth.get_user(request)
     city_in_bd = user.cities.filter(slug=city).exists()
     
-    # tem a cidade no banco do usuario
+    # there is city in bd of user
     if city_in_bd:
         city = user.cities.filter(slug=city).first().name
     
