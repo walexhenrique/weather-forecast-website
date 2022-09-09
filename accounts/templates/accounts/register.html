@@ -1,0 +1,29 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<section class="container-content">
+    <div class="register">
+        <div class="register-content">
+            <h1>Registrar</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="fields">
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" value="{{ request.POST.username }}"><br>
+                    <label for="first_name">Primeiro Nome:</label><br>
+                    <input type="text" id="first_name" name="first_name" value="{{ request.POST.first_name }}"><br>
+                    <label for="last_name">Sobrenome:</label><br>
+                    <input type="text" id="last_name" name="last_name" value="{{ request.POST.last_name }}"><br>
+                    <label for="email">Email:</label><br>
+                    <input type="email" id="email" name="email" value="{{ request.POST.email }}"><br>
+                    <label for="password_1">Sua senha:</label><br>
+                    <input type="password" id="password_1" name="password_1"><br>
+                    <label for="password_2">Repita sua senha:</label><br>
+                    <input type="password" id="password_2" name="password_2"><br>
+                </div>
+                <button type="submit" class="button">Cadastrar</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}
