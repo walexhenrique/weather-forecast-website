@@ -1,6 +1,8 @@
 from django.contrib import auth
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import HttpResponse, redirect, render
+from slugify import slugify
 
 
 # Create your views here.
@@ -31,8 +33,22 @@ def logout(request):
 def register(request):
     return HttpResponse('TEMPORARIO')
 
+@login_required(login_url='accounts:login')
 def dashboard(request):
-    return HttpResponse('Dashboard')
+    
+    if request.method == 'POST':
+        city = request.POST.get('search')
+        city_slugify = slugify(city)
+        return redirect('accounts:about_city', city=city_slugify)
+    
+    user = auth.get_user(request)
+    cities = user.cities.all()
 
-def about_city(request):
-    return HttpResponse('TEMPORARIO')
+    return render(request, 'accounts/dashboard.html', 
+    {
+        'title': f'Dashboard | {user.first_name}',
+        'cities': cities
+    })
+
+def about_city(request, city):
+    return HttpResponse(f'TEMPORARIO {city}')

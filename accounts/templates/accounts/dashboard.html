@@ -1,0 +1,31 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<section class="container-content">
+
+    <div class="weather-content center-content">
+        <div class="title">
+            <h1>Bem vindo: <span>{{ user.first_name }}</span></h1>
+        </div>
+        <div class="search">
+            <form method="post">
+                {% csrf_token %}
+                <input type="search" placeholder="Cidade..." name='search'>
+                <button type="submit">BUSCAR Cidade</button>
+            </form>
+        </div>
+        {% for city in cities %}
+            <article class="city-dashboard">
+
+                <header>
+                    <h2>{{ city.name }}</h2>
+                </header>
+
+                <a href="{% url 'accounts:about_city' city.slug %}">VER PREVISÃO</a>
+            </article>
+        {% endfor %}
+
+    </div>
+
+</section>
+{% endblock content %}
