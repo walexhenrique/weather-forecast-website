@@ -24,6 +24,10 @@ def login(request):
 
     return redirect('accounts:dashboard')
 
+def logout(request):
+    auth.logout(request)
+    return redirect('home:index')
+
 def register(request):
     return HttpResponse('TEMPORARIO')
 
