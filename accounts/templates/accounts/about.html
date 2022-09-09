@@ -26,4 +26,12 @@
     </div>
 
 </section>
+
+<div class="add-city">
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">{% if city_added %}REMOVER CIDADE{% else %}ADICIONAR CIDADE{% endif %}</button>
+    </form>
+</div>
+
 {% endblock content %}

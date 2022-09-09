@@ -6,6 +6,7 @@ from django.core.validators import validate_email
 from django.shortcuts import HttpResponse, redirect, render
 from slugify import slugify
 from utils import weather_forecast
+from .models import City
 
 
 # Create your views here.
@@ -95,6 +96,21 @@ def dashboard(request):
 @login_required(login_url='accounts:login')
 def about_city(request, city):
 
+    if request.method == 'POST':
+        user = auth.get_user(request)
+        city_in_bd = user.cities.filter(slug=city).exists()
+
+        if not city_in_bd:
+            #colocar mensagem dps
+            city_api = weather_forecast.CityWeather(city)
+            
+            if city_api.connect_api():
+                new_city = City.objects.create(name=city_api.city_name, slug=slugify(city_api.city_name), profile=user)
+                new_city.save()
+        else:
+            print('deletei ele da base')
+            City.objects.filter(slug=city).delete()
+
     user = auth.get_user(request)
     city_in_bd = user.cities.filter(slug=city).exists()
     
@@ -109,4 +125,5 @@ def about_city(request, city):
     return render(request, 'accounts/about.html', {
         'city': city_api, 
         'title': f'Previsão do tempo de {city_api.city}',
+        'city_added': city_in_bd,
         })
