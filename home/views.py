@@ -13,6 +13,8 @@ capitals = ['Rio branco', 'Maceio', 'Macapá', 'Manaus', 'Fortaleza', 'Brasilia'
 # Create your views here.
 def index(request):
     
+    is_authenticated = request.user.is_authenticated
+
     capitals_random = random.sample(capitals, 6)
     cities = [CityWeatherFactory.get_city(capital) for capital in capitals_random]
     
@@ -28,5 +30,6 @@ def index(request):
     return render(request, 'home/index.html', {
         'cities': cities,
         'title': 'Home',
+        'is_authenticated': is_authenticated,
     }
     )

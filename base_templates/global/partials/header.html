@@ -2,8 +2,29 @@
     <nav class="container-nav">
         <ul class="menu">
             <li><a href="{% url 'home:index' %}"><i class="fa fa-tint fa-6" aria-hidden="true"></i> Inicio </a></li>
+            {% if is_authenticated %}
+            <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Deslogar</a></li>
+            {% else %}
             <li><a href="{% url 'accounts:login' %}">Logar</a></li>
             <li><a href="{% url 'accounts:register' %}">Registrar</a></li>
+            {% endif %}
         </ul>
+        <div class="mobile-menu-icon">
+            <button onclick="menuShow()"><i class="fa fa-bars fa-6" aria-hidden="true"></i></button>
+        </div>
     </nav>
+
+    <div class="mobile-menu">
+        <ul>
+            <li><a href="{% url 'home:index' %}"><i class="fa fa-tint fa-6" aria-hidden="true"></i> Inicio </a></li>
+            {% if is_authenticated %}
+            <li><a href="{% url 'accounts:dashboard' %}">Dashboard</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Deslogar</a></li>
+            {% else %}
+            <li><a href="{% url 'accounts:login' %}">Logar</a></li>
+            <li><a href="{% url 'accounts:register' %}">Registrar</a></li>
+            {% endif %}
+        </ul>
+    </div>
 </header>

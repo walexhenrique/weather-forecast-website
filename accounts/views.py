@@ -11,14 +11,15 @@ from .models import City
 
 # Create your views here.
 def login(request):
+    is_authenticated = request.user.is_authenticated
     if request.method != 'POST':
         
         # User logged don't can login again
-        if request.user.is_authenticated:
+        if is_authenticated:
             messages.add_message(request, messages.INFO, 'Você já está logado')
             return redirect('accounts:dashboard')
 
-        return render(request, 'accounts/login.html', {'title' : 'Login'})
+        return render(request, 'accounts/login.html', {'title' : 'Login', 'is_authenticated': is_authenticated})
     
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -26,7 +27,7 @@ def login(request):
     user = auth.authenticate(request, username=username, password=password)
     if not user:
         messages.add_message(request, messages.ERROR, 'username e senha inválidos')
-        return render(request, 'accounts/login.html', {'title' : 'Login'})
+        return render(request, 'accounts/login.html', {'title' : 'Login', 'is_authenticated': is_authenticated})
     
     auth.login(request, user)
 
@@ -38,13 +39,13 @@ def logout(request):
     return redirect('home:index')
 
 def register(request):
-
+    is_authenticated = request.user.is_authenticated
     if request.method != 'POST':
         if request.user.is_authenticated:
             messages.add_message(request, messages.INFO, 'Você já está logado')
             return redirect('accounts:dashboard')
 
-        return render(request, 'accounts/register.html', {'title': 'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title': 'Crie a sua conta', 'is_authenticated': is_authenticated})
     
     username = request.POST.get('username')
     first_name = request.POST.get('first_name')
@@ -55,33 +56,33 @@ def register(request):
 
     if not username or not first_name or not last_name or not email or not password_1 or not password_2:
         messages.add_message(request, messages.ERROR, 'Todos os campos são obrigatórios')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
 
     try:
         validate_email(email)
     except:
         messages.add_message(request, messages.ERROR, 'Email inválido')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
 
     if len(username) < 5:
         messages.add_message(request, messages.ERROR, 'Nome de usuário precisa ter mais de 5 caracteres')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
     
     if User.objects.filter(username=username).exists():
         messages.add_message(request, messages.ERROR, 'Username já existente no sistema')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
     
     if User.objects.filter(email=email).exists():
         messages.add_message(request, messages.ERROR, 'Email já existente no sistema')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
     
     if len(password_1) < 5 or len(password_2) < 5:
         messages.add_message(request, messages.ERROR, 'O tamanho mínimo da senha é 5 caracteres')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
     
     if password_1 != password_2:
         messages.add_message(request, messages.ERROR, 'As senhas não correspondem entre si')
-        return render(request, 'accounts/register.html', {'title':'Crie a sua conta'})
+        return render(request, 'accounts/register.html', {'title':'Crie a sua conta', 'is_authenticated': is_authenticated})
 
     new_user = User.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email, password=password_1)
     new_user.save()
@@ -90,7 +91,7 @@ def register(request):
 
 @login_required(login_url='accounts:login')
 def dashboard(request):
-    
+    is_authenticated = request.user.is_authenticated
     if request.method == 'POST':
         city = request.POST.get('search')
         city_slugify = slugify(city)
@@ -102,11 +103,13 @@ def dashboard(request):
     return render(request, 'accounts/dashboard.html', 
     {
         'title': f'Dashboard | {user.first_name}',
-        'cities': cities
+        'cities': cities, 
+        'is_authenticated': is_authenticated
     })
 
 @login_required(login_url='accounts:login')
 def about_city(request, city):
+    is_authenticated = request.user.is_authenticated
 
     if request.method == 'POST':
         user = auth.get_user(request)
@@ -124,6 +127,8 @@ def about_city(request, city):
             messages.add_message(request, messages.SUCCESS, 'Cidade removida da sua dashboard')
 
             City.objects.filter(slug=city).delete()
+            
+        return redirect('accounts:about_city', city=city)
 
     user = auth.get_user(request)
     city_in_bd = user.cities.filter(slug=city).exists()
@@ -142,4 +147,5 @@ def about_city(request, city):
         'city': city_api, 
         'title': f'Previsão do tempo de {city_api.city}',
         'city_added': city_in_bd,
+        'is_authenticated': is_authenticated
         })

@@ -13,6 +13,8 @@
     --main-bg-color-menu: #ffc8dd;
 }
 
+
+
 html {
     font-size: 62.5%;
     font-family: 'Luckiest Guy', sans-serif;
@@ -30,7 +32,7 @@ button {
 .up {
     position: fixed;
     right: 5rem;
-    bottom: 5rem;
+    bottom: 8rem;
 }
 
 .up a {
@@ -46,6 +48,7 @@ button {
 
 .up a:hover {
     background: var(--color-purple);
+    opacity: 0.6;
 }
 
 
@@ -176,8 +179,8 @@ button {
 
 .register {
     max-width: 128rem;
-    margin: 3rem auto;
-    height: 100%;
+    
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -192,6 +195,8 @@ button {
     box-shadow: 5px 5px var(--main-bg-color-menu);
     border-radius: 2rem;
     text-align: center;
+    margin: 2rem 0;
+    
 }
 
 .register-content h1 {
@@ -363,6 +368,7 @@ button {
 
 .add-city button:hover {
     cursor: pointer;
+    opacity: 0.6;
     background: var(--color-purple);
 }
 
@@ -470,7 +476,7 @@ button {
     background: #14213d;
 }
 .alert:hover {
-    opacity: 0.5;
+    opacity: 0.6;
 }
 
 .alert-danger {
@@ -481,5 +487,168 @@ button {
     background: #06d6a0;
 }
 
+/* nav mobile */
+
+.mobile-menu-icon {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+}
 
 /* responsivo */
+@media (max-width: 890px) {
+
+    .city {
+        width: 40%;
+    }
+
+    .city-dashboard a {
+        width: 50%;
+    }
+
+}
+
+@media (max-width: 625px) {
+    .city {
+        width: 95%;
+        margin: 3rem 4rem;
+    }
+
+    .city:hover {
+        transform: scale(1.05);
+    }
+
+    .weather-content .title {
+        font-size: 2.2rem;
+    }
+    .weather-content .title > h1 {
+        margin: 0 2rem;
+    }
+
+    /* register */
+    .register {
+        font-size: 2.5rem;
+    }
+    .register-content {
+        padding: 4rem;
+    }
+    .register-content h1 {
+        font-size: 5rem;
+        padding: 0.5rem;
+    }
+    
+    /* dashboard */
+    .search input {
+        max-width: 25rem;
+    }
+
+    .search form button {
+        padding: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .city-dashboard h2 {
+        font-size: 3rem;
+    }
+    .city-dashboard a {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+
+    
+}
+
+@media (max-width: 470px) {
+    .menu li a {
+        padding: 2rem 0.5rem;
+    }
+
+    .menu li {
+        display: none;
+    }
+
+    .mobile-menu-icon {
+        display: block;
+    }
+
+    .mobile-menu-icon i {
+        padding: 2rem 1rem;
+        color: var(--color-white);
+        font-size: 4rem;
+    }
+
+    .mobile-menu-icon button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+    }
+
+    .mobile-menu ul {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .mobile-menu ul li {
+        display: block;
+        padding-top: 1.2rem;
+        margin: 1rem 0;
+    }
+    .mobile-menu ul li a {
+        text-decoration: none;
+        font-size: 2rem;
+        padding: 1rem;
+        color: var(--color-white);
+    }
+
+    .open {
+        display: block;
+    }
+
+    .up a {
+        padding: 1rem 2rem;
+    }
+
+    .footer {
+        padding: 5rem 2.5rem;
+        font-size: 0.9rem;
+    }
+
+    /* login */
+
+    .login {
+        padding: 3.5rem;
+        font-size: 2rem;
+        margin: 0 2rem;
+    }
+    .login > h1 {
+        font-size: 4rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* register */
+    .register {
+        font-size: 1.5rem;
+    }
+    .register-content {
+        padding: 2rem;
+    }
+    .register-content h1 {
+        font-size: 3rem;
+        padding: 0.5rem;
+    }
+
+    /* alert */
+    .alert {
+        padding: 1rem;
+    }
+
+    /* add-city */
+    .add-city button {
+        padding: 1rem 1.5rem;
+    }
+}
